@@ -1,0 +1,49 @@
+pipeline{
+
+	agent {label 'built-in'}
+
+	environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+	}
+
+	stages {
+	    
+	    stage('gitclone') {
+
+			steps {
+				git 'https://github.com/AniketBhagat1/Dockerfile.git'
+			}
+		}
+
+		stage('Build') {
+
+			steps {
+				sh 'sudo docker build -t aniketbhagat1997/apache_img:1.2 .'
+			}
+		}
+
+		stage('Login') {
+
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
+
+		stage('Push') {
+
+			steps {
+				sh 'sudo docker push aniketbhagat1997/apache_img:1.2'
+			}
+		}
+		stage(Docker_run_container) {
+			steps {
+				sh 'sudo docker run -itd --name test aniketbhagat1997/apache_img:1.2'
+	}
+
+	post {
+		always {
+			sh 'sudo docker logout'
+		}
+	}
+
+}
