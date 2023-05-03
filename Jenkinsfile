@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Build_img') {
       steps {
-        sh 'docker build -t aniketbhagat1997/apache_img:4.0 .'
+        sh 'sudo docker build -t aniketbhagat1997/apache_img:4.0 .'
       }
     }
 
