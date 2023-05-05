@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Build_img') {
       steps {
-        sh 'sudo docker images'
+        sh 'sudo docker images -s'
       }
     }
 
