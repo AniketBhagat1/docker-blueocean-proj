@@ -8,9 +8,7 @@ pipeline {
   stages {
     stage('Build_img') {
       steps {
-        sh '''ls
-pwd
-hostname'''
+        sh 'docker images'
       }
     }
 
